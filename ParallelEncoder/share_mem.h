@@ -1,16 +1,14 @@
 #pragma once
 
-#include "./include/stdint.h"
-#ifndef _WINDOWS_
+#include <stdint.h>
 #include <windows.h>
-#endif
 
-#define UNIT_HEADER_LENGTH 8 //8 byte
-#define CONTENT( unit ) ((uint8_t *)unit + UNIT_HEADER_LENGTH)
+#define UNIT_HEADER_LENGTH 8 // 8 byte
+#define CONTENT(unit) ((uint8_t *)unit + UNIT_HEADER_LENGTH)
 
 #define PIC_UNIT_SIZE  ((1<<19)-UNIT_HEADER_LENGTH) // a little larger than size of 1920x1080 chroma
 #define UNITS_PER_PIC 6 // a pic's yuv data size is 6 times of chroma data size
-#define NAL_UNIT_SIZE  ((1<<14)-UNIT_HEADER_LENGTH) //4K
+#define NAL_UNIT_SIZE  ((1<<14)-UNIT_HEADER_LENGTH) // 4K
 
 typedef struct
 {
@@ -23,7 +21,7 @@ typedef struct
 	//contents
 } share_mem_unit_t;
 
-typedef struct  
+typedef struct
 {
 	HANDLE map_handle;
 	LPVOID buffer_handle;
@@ -37,9 +35,7 @@ typedef struct
 	int32_t mapping_count;
 } share_mem_info_t;
 
-int share_mem_init( share_mem_info_t *shm, char *file_mapping_name, int unit_size, int unit_count, int mapping_count, int create );
-int share_mem_read ( share_mem_info_t *shm, void *buffer, int max_size, int *eos );
-int share_mem_write( share_mem_info_t *shm, void *buffer, int size, int eos );
-void share_mem_uninit( share_mem_info_t *shm );
-
-int share_mem_read_more ( share_mem_info_t *shm, void *buffer, int max_size, int *eos, int waiting);
+int share_mem_init(share_mem_info_t *shm, char *file_mapping_name, int unit_size, int unit_count, int mapping_count, int create);
+int share_mem_read(share_mem_info_t *shm, void *buffer, int max_size, int *eos, int wait);
+int share_mem_write(share_mem_info_t *shm, void *buffer, int size, int eos, int wait);
+void share_mem_uninit(share_mem_info_t *shm);
