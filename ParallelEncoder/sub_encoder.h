@@ -3,8 +3,7 @@
 #include "share_mem.h"
 #include "paral_encoder.h"
 
-typedef struct
-{
+typedef struct {
 	int index;
 	int number;
 	int pic_count;

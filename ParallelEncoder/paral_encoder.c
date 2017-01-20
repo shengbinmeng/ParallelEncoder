@@ -3,8 +3,7 @@
 #include "paral_encoder.h"
 #include "sub_encoder.h"
 
-struct parallel_encoder_t
-{
+struct parallel_encoder_t {
 	int pic_width;
 	int pic_height;
 	int paral_number;
@@ -124,7 +123,7 @@ void parallel_encoder_close(parallel_encoder_t *p)
 		sub_encoder_t *sub = p->sub_encoders[i];
 		sub_encoder_stop(sub);
 		free(sub);
-    }
+	}
 	free(p->sub_encoders);
 	free(p);
 }

@@ -9,9 +9,8 @@ int sub_encoder_start(sub_encoder_t* sub)
 	sprintf(pic_name, "MEM_SHARE_PIC_%d", sub->index);
 	sprintf(nal_name, "MEM_SHARE_NAL_%d", sub->index);
 
-	int unit_size = 0, unit_count = 0;
-	unit_size = PIC_UNIT_SIZE;
-	unit_count = sub->pic_count * UNITS_PER_PIC;
+	int unit_size = PIC_UNIT_SIZE;
+	int unit_count = sub->pic_count * UNITS_PER_PIC;
 	share_mem_init(&sub->pic_buffer, pic_name, unit_size, unit_count, unit_count, 1);
 
 	unit_size = NAL_UNIT_SIZE;
@@ -29,9 +28,8 @@ int sub_encoder_start(sub_encoder_t* sub)
 	si.cb = sizeof(si);
 
 	// Start the child process.
-	BOOL ret = 0;
-	ret = CreateProcess(NULL, args_w, NULL, NULL, FALSE, CREATE_NEW_CONSOLE, NULL, NULL, &si, &sub->process_info);
-	if (ret == NULL) {
+	BOOL ret = CreateProcess(NULL, args_w, NULL, NULL, FALSE, CREATE_NEW_CONSOLE, NULL, NULL, &si, &sub->process_info);
+	if (ret == FALSE) {
 		printf("CreateProcess failed! error: %d", GetLastError());
 		return -1;
 	}
@@ -41,11 +39,9 @@ int sub_encoder_start(sub_encoder_t* sub)
 
 int sub_encoder_stop(sub_encoder_t* sub)
 {
+	TerminateProcess(sub->process_info.hProcess , 0);
 	share_mem_uninit(&sub->pic_buffer);
 	share_mem_uninit(&sub->nal_buffer);
-
-	TerminateProcess(sub->process_info.hProcess , 0);
-
 	return 0;
 }
 

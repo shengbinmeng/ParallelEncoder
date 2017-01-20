@@ -10,8 +10,7 @@
 #define UNITS_PER_PIC 6 // a pic's yuv data size is 6 times of chroma data size
 #define NAL_UNIT_SIZE  ((1<<14)-UNIT_HEADER_LENGTH) // 4K
 
-typedef struct
-{
+typedef struct {
 	uint32_t content_size;
 	uint8_t has_content;
 	uint8_t eos; //end of stream
@@ -21,8 +20,7 @@ typedef struct
 	//contents
 } share_mem_unit_t;
 
-typedef struct
-{
+typedef struct {
 	HANDLE map_handle;
 	LPVOID buffer_handle;
 	share_mem_unit_t **share_unit;

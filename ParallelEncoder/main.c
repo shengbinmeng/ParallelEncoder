@@ -87,7 +87,7 @@ static int encode(char *input_file, char *output_file, encoder_param_t *param, i
 int main(int argc, char **argv)
 {
 	if (argc < 5) {
-		printf("Usage: %s <width> <heigth> <input_file> <output_file> [frame_skip] [frame_number]\n", argv[0]);
+		printf("Usage: %s <width> <height> <input_file> <output_file> [frame_skip] [frame_number]\n", argv[0]);
 		return -1;
 	}
 

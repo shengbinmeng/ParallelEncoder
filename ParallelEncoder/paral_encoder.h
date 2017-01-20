@@ -17,14 +17,14 @@ typedef struct {
 	unsigned char *payload;
 } encoder_nal_t;
 
-typedef struct parallel_encoder_t parallel_encoder_t;
-
 typedef struct {
 	int pic_width;
 	int pic_height;
 	int paral_number;
 	int pics_per_idr;
 } encoder_param_t;
+
+typedef struct parallel_encoder_t parallel_encoder_t;
 
 int encoder_picture_alloc(encoder_picture_t *pic, int width, int height);
 void encoder_picture_free(encoder_picture_t *pic);
